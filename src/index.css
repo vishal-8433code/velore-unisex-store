@@ -1,0 +1,225 @@
+/* --- Tailwind Imports (always at top) --- */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap");
+@import "animate.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Extra Tailwind Plugins (like animate) --- */
+
+/* --- Custom Variants --- */
+@custom-variant dark (&:is(.dark *));
+
+/* --- Luxury Theme Variables --- */
+:root {
+  --background: #1a1a1a; /* oklch(0.1 0 0) */
+  --foreground: #fafafa; /* oklch(0.98 0 0) */
+
+  --card: rgba(38, 38, 38, 0.8); /* oklch(0.15 0 0 / 0.8) */
+  --card-foreground: #fafafa;
+
+  --popover: rgba(31, 31, 31, 0.95); /* oklch(0.12 0 0 / 0.95) */
+  --popover-foreground: #fafafa;
+
+  --primary: hsl(220 90% 65%); /* oklch(0.75 0.15 85) approx */
+  --primary-foreground: #1a1a1a;
+
+  --secondary: rgba(242, 242, 242, 0.1); /* oklch(0.95 0 0 / 0.1) */
+  --secondary-foreground: #fafafa;
+
+  --muted: rgba(102, 102, 102, 0.5); /* oklch(0.4 0 0 / 0.5) */
+  --muted-foreground: #b3b3b3; /* oklch(0.7 0 0) */
+
+  --accent: hsl(220 90% 65%);
+  --accent-foreground: #1a1a1a;
+
+  --destructive: hsl(10 80% 50%); /* oklch(0.6 0.2 25) */
+  --destructive-foreground: #fafafa;
+
+  --border: rgba(77, 77, 77, 0.3); /* oklch(0.3 0 0 / 0.3) */
+  --input: rgba(51, 51, 51, 0.8); /* oklch(0.2 0 0 / 0.8) */
+  --ring: rgba(77, 129, 243, 0.5); /* oklch(0.75 0.15 85 / 0.5) */
+
+  --chart-1: hsl(220 90% 65%);
+  --chart-2: #fafafa;
+  --chart-3: #b3b3b3;
+  --chart-4: #1a1a1a;
+  --chart-5: rgba(77, 129, 243, 0.3);
+
+  --radius: 0.5rem;
+
+  /* Sidebar */
+  --sidebar: rgba(20, 20, 20, 0.9); /* oklch(0.08 0 0 / 0.9) */
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: hsl(220 90% 65%);
+  --sidebar-primary-foreground: #1a1a1a;
+  --sidebar-accent: #333333; /* oklch(0.2 0 0) */
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: rgba(77, 77, 77, 0.3);
+  --sidebar-ring: rgba(77, 129, 243, 0.5);
+}
+
+/* --- Dark Mode --- */
+.dark {
+  --background: #0d0d0d; /* oklch(0.05 0 0) */
+  --foreground: #fafafa;
+
+  --card: rgba(26, 26, 26, 0.9); /* oklch(0.1 0 0 / 0.9) */
+  --card-foreground: #fafafa;
+
+  --popover: rgba(20, 20, 20, 0.95); /* oklch(0.08 0 0 / 0.95) */
+  --popover-foreground: #fafafa;
+
+  --primary: hsl(220 90% 70%); /* oklch(0.8 0.18 85) */
+  --primary-foreground: #0d0d0d;
+
+  --secondary: #262626; /* oklch(0.15 0 0) */
+  --secondary-foreground: #fafafa;
+
+  --muted: #333333; /* oklch(0.2 0 0) */
+  --muted-foreground: #999999; /* oklch(0.6 0 0) */
+
+  --accent: hsl(220 90% 70%);
+  --accent-foreground: #0d0d0d;
+
+  --destructive: hsl(10 85% 45%); /* oklch(0.65 0.25 25) */
+  --destructive-foreground: #fafafa;
+
+  --border: rgba(64, 64, 64, 0.4); /* oklch(0.25 0 0 / 0.4) */
+  --input: rgba(38, 38, 38, 0.9); /* oklch(0.15 0 0 / 0.9) */
+  --ring: rgba(77, 129, 243, 0.6);
+
+  --chart-1: hsl(220 90% 70%);
+  --chart-2: #fafafa;
+  --chart-3: #b3b3b3;
+  --chart-4: #262626;
+  --chart-5: rgba(77, 129, 243, 0.4);
+
+  --sidebar: rgba(10, 10, 10, 0.95); /* oklch(0.03 0 0 / 0.95) */
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: hsl(220 90% 70%);
+  --sidebar-primary-foreground: #0d0d0d;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: rgba(64, 64, 64, 0.4);
+  --sidebar-ring: rgba(77, 129, 243, 0.6);
+}
+
+/* --- Theme Mapping --- */
+@theme inline {
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* --- Base Layer --- */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    font-family: var(--font-source-sans);
+    @apply bg-background text-foreground;
+  }
+}
+
+/* --- Premium Utilities (from your globals.css) --- */
+.glass {
+  @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg;
+}
+
+.gold-gradient {
+  background: linear-gradient(90deg, #d4af37, #ffd700, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.premium-hover:hover {
+  transform: translateY(-2px) scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Example shimmer */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    background-position: -200% 0;
+  }
+}
+.theme-premium {
+  --background: 0 0% 5%;          /* Black background */
+  --foreground: 0 0% 100%;        /* White text */
+
+  --card: 0 0% 10%;               /* Dark card */
+  --card-foreground: 0 0% 100%;
+
+  --popover: 0 0% 10%;
+  --popover-foreground: 0 0% 100%;
+
+  --primary: 50 100% 50%;         /* Yellow */
+  --primary-foreground: 0 0% 0%;  /* Black text on yellow */
+
+  --secondary: 39 100% 50%;       /* Orange-ish */
+  --secondary-foreground: 0 0% 0%;
+
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 80%;
+
+  --accent: 50 100% 50%;
+  --accent-foreground: 0 0% 0%;
+
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+
+  --ring: 50 100% 50%;
+}
+
+
