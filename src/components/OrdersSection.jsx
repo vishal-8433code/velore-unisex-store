@@ -5,11 +5,11 @@ import { Button } from "../components/ui/button";
 import { Eye, Package, Truck } from "lucide-react";
 
 const mockOrders = [
-  { id: 1001, customer: "John Smith", total: 299.99, status: "pending", date: "2024-01-15", items: 2 },
-  { id: 1002, customer: "Sarah Johnson", total: 599.98, status: "processing", date: "2024-01-14", items: 3 },
-  { id: 1003, customer: "Mike Wilson", total: 199.99, status: "shipped", date: "2024-01-13", items: 1 },
-  { id: 1004, customer: "Emma Davis", total: 799.97, status: "delivered", date: "2024-01-12", items: 4 },
-  { id: 1005, customer: "Chris Brown", total: 399.99, status: "processing", date: "2024-01-11", items: 2 },
+  { id: 1001, customer: "John Smith", total: 299, status: "pending", date: "2024-01-15", items: 2 },
+  { id: 1002, customer: "Sarah Johnson", total: 599, status: "processing", date: "2024-01-14", items: 3 },
+  { id: 1003, customer: "Mike Wilson", total: 199, status: "shipped", date: "2024-01-13", items: 1 },
+  { id: 1004, customer: "Emma Davis", total: 799, status: "delivered", date: "2024-01-12", items: 4 },
+  { id: 1005, customer: "Chris Brown", total: 399, status: "processing", date: "2024-01-11", items: 2 },
 ];
 
 const getStatusColor = (status) => {
@@ -50,7 +50,7 @@ export const OrdersSection = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
                   <p className="text-sm text-muted-foreground">Total Amount</p>
-                  <p className="font-bold text-primary text-lg">${order.total}</p>
+                  <p className="font-bold text-primary text-lg">₹{order.total}</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Items</p>

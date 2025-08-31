@@ -299,9 +299,9 @@ function ProductCard() {
         </div>
 
         <div className="priceRow" aria-label="Pricing">
-          <div className="price">$169</div>
+          <div className="price">₹169</div>
           <div className="compare" aria-label="Compare at price">
-            $199
+            ₹199
           </div>
         </div>
 

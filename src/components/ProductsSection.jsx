@@ -6,26 +6,33 @@ import { Badge } from "../components/ui/badge";
 import { Search, Plus, Edit, Trash2, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const mockProducts = [
-  { id: 1, name: "Premium Widget", price: 299.99, category: "Electronics", stock: 45, status: "active" },
-  { id: 2, name: "Luxury Gadget", price: 499.99, category: "Electronics", stock: 23, status: "active" },
-  { id: 3, name: "Designer Item", price: 199.99, category: "Fashion", stock: 12, status: "inactive" },
-  { id: 4, name: "Pro Tool", price: 399.99, category: "Tools", stock: 67, status: "active" },
-];
+
 
 export const ProductsSection = () => {
-  const [products] = useState(mockProducts);
+  const [mockProducts,setMockProduct] = useState([
+  { id: 1, name: "Premium Widget", price: 299, category: "Electronics", stock: 45, status: "active" },
+  { id: 2, name: "Luxury Gadget", price: 499, category: "Electronics", stock: 23, status: "active" },
+  { id: 3, name: "Designer Item", price: 199, category: "Fashion", stock: 12, status: "inactive" },
+  { id: 4, name: "Pro Tool", price: 399, category: "Tools", stock: 67, status: "active" },
+]);
+const deleteProduct = (id) => {
+const LeftProduct = mockProducts.filter((item) => item.id !== id)
+setMockProduct(LeftProduct)
+  }
   const [searchTerm, setSearchTerm] = useState("");
   const  navigate = useNavigate()
 
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = mockProducts.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     product.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
   const navigateToCreateProduct = () => {
 navigate("/create-product")
   }
-
+  const navigateToEditProduct = () => {
+navigate("/edit-product")
+  }
+  
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -71,7 +78,7 @@ navigate("/create-product")
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-2xl font-bold text-primary">${product.price}</span>
+                <span className="text-2xl font-bold text-primary">₹{product.price}</span>
                 <span className="text-sm text-muted-foreground">{product.category}</span>
               </div>
               <div className="flex justify-between items-center">
@@ -85,11 +92,16 @@ navigate("/create-product")
                   <Eye className="h-3 w-3" />
                   <span className="hidden xs:inline">View</span>
                 </Button>
-                <Button size="sm" variant="outline" className="flex items-center gap-1 justify-center">
+                <Button size="sm" variant="outline" className="flex items-center gap-1 justify-center"
+                onClick={
+                  navigateToEditProduct
+                }>
                   <Edit className="h-3 w-3" />
+                  
                   <span className="hidden xs:inline">Edit</span>
                 </Button>
-                <Button size="sm" variant="destructive" className="flex items-center gap-1 justify-center">
+                <Button size="sm" variant="destructive" className="flex items-center gap-1 justify-center"
+                onClick={() => {deleteProduct(product.id)}}>
                   <Trash2 className="h-3 w-3" />
                   <span className="hidden xs:inline">Delete</span>
                 </Button>

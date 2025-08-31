@@ -15,6 +15,7 @@ import AdminLogin from "./pages/AdminLogin.jsx"
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import ProductForm from "./pages/ProductForm.jsx"
 import Signup from "./pages/Sign-up.jsx"
+import EditProduct from "./pages/EditProduct.jsx";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -35,6 +36,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/create-product" element={<ProductForm />} />
+          <Route path="/edit-product" element={<EditProduct />} />
         </Routes>
       </Layout>
     </BrowserRouter>
