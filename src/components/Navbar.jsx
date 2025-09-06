@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingBag, Menu, X, User, Settings } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { NavLink, useLocation } from "react-router-dom";
@@ -14,8 +14,15 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartCount] = useState(3);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 👈 Track login state
   const VeloreYellow = "hsl(44.13deg 100% 47.45%)";
   const location = useLocation();
+
+  // Check token from localStorage on load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, [location]); // re-check on route change
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
@@ -49,24 +56,33 @@ export default function Navbar() {
 
           {/* Right icons on desktop */}
           <div className="hidden md:flex items-center space-x-3 ml-14">
-            <NavLink
-              to="/login"
-              style={{ color: location.pathname === "/login" ? VeloreYellow : "white" }}
-              className="text-white p-2"
-            >
-              <User className="h-5 w-5" />
-            </NavLink>
-            <NavLink
-              to="/setting"
-              style={{ color: location.pathname === "/setting" ? VeloreYellow : "white" }}
-              className="text-white p-2"
-            >
-              <Settings className="h-5 w-5" />
-            </NavLink>
+            {!isLoggedIn ? (
+              <NavLink
+                to="/login"
+                style={{
+                  color: location.pathname === "/login" ? VeloreYellow : "white",
+                }}
+                className="text-white p-2"
+              >
+                <User className="h-5 w-5" />
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/setting"
+                style={{
+                  color: location.pathname === "/setting" ? VeloreYellow : "white",
+                }}
+                className="text-white p-2"
+              >
+                <Settings className="h-5 w-5" />
+              </NavLink>
+            )}
 
             <NavLink
               to="/cart"
-              style={{ color: location.pathname === "/cart" ? VeloreYellow : "white" }}
+              style={{
+                color: location.pathname === "/cart" ? VeloreYellow : "white",
+              }}
               className="relative text-white p-2"
             >
               <ShoppingBag className="h-5 w-5" />
@@ -117,33 +133,42 @@ export default function Navbar() {
                 </NavLink>
               ))}
 
-              {/* User & Cart */}
-              <NavLink
-                to="/signup"
-                style={{ color: location.pathname === "/signup" ? VeloreYellow : "white" }}
-                className="block px-3 py-2 text-base font-medium smooth-transition hover:text-yellow-500"
-                onClick={() => setIsOpen(false)}
-              >
-                <div className="flex items-center space-x-2">
-                  <User className="h-5 w-5" />
-                  <span>SignIn</span>
-                </div>
-              </NavLink>
-              <NavLink
-                to="/setting"
-                style={{ color: location.pathname === "/setting" ? VeloreYellow : "white" }}
-                className="block px-3 py-2 text-base font-medium smooth-transition hover:text-yellow-500"
-                onClick={() => setIsOpen(false)}
-              >
-                <div className="flex items-center space-x-2">
-                  <Settings className="h-5 w-5" />
-                  <span>Setting</span>
-                </div>
-              </NavLink>
+              {/* User OR Setting for mobile */}
+              {!isLoggedIn ? (
+                <NavLink
+                  to="/login"
+                  style={{
+                    color: location.pathname === "/login" ? VeloreYellow : "white",
+                  }}
+                  className="block px-3 py-2 text-base font-medium smooth-transition hover:text-yellow-500"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <User className="h-5 w-5" />
+                    <span>Sign In</span>
+                  </div>
+                </NavLink>
+              ) : (
+                <NavLink
+                  to="/setting"
+                  style={{
+                    color: location.pathname === "/setting" ? VeloreYellow : "white",
+                  }}
+                  className="block px-3 py-2 text-base font-medium smooth-transition hover:text-yellow-500"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className="flex items-center space-x-2">
+                    <Settings className="h-5 w-5" />
+                    <span>Setting</span>
+                  </div>
+                </NavLink>
+              )}
 
               <NavLink
                 to="/cart"
-                style={{ color: location.pathname === "/cart" ? VeloreYellow : "white" }}
+                style={{
+                  color: location.pathname === "/cart" ? VeloreYellow : "white",
+                }}
                 className="block px-3 py-2 text-base font-medium smooth-transition hover:text-yellow-500 relative"
                 onClick={() => setIsOpen(false)}
               >

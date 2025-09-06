@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom"
  * - No props needed. It posts directly to BACKEND_URL.
  * - Optional global override: set window.CREATE_PRODUCT_API_URL to change endpoint at runtime.
  */
-const BACKEND_URL = "/api/products" // change if your backend uses a different path
+ // change if your backend uses a different path
 
 export default function CreateProductForm() {
   // Options
@@ -97,7 +97,7 @@ export default function CreateProductForm() {
 
   const onSubmit = async (values) => {
     try {
-      const apiUrl = (typeof window !== "undefined" && window.CREATE_PRODUCT_API_URL) || BACKEND_URL
+      const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/api/upload/image`
 
       // Build multipart/form-data for robust backend compatibility (supports optional image)
       const fd = new FormData()
@@ -112,12 +112,12 @@ export default function CreateProductForm() {
       fd.append("color", values.color)
       fd.append("gender", values.gender)
       fd.append("sku", values.sku.trim())
-      fd.append("stock", typeof values.stock === "number" ? String(values.stock) : "")
+     fd.append("stock", values.stock ? String(values.stock) : "0")
       fd.append("isNew", values.isNew ? "true" : "false")
       fd.append("isSale", values.isSale ? "true" : "false")
       fd.append("sizes", JSON.stringify(values.sizes || []))
       if (values.imageFile && values.imageFile[0]) {
-        fd.append("imageFile", values.imageFile[0])
+        fd.append("image", values.imageFile[0]) 
       }
 
       const res = await axios.post(apiUrl, fd, {
@@ -345,6 +345,7 @@ export default function CreateProductForm() {
                   <option value="">Select a gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
+                  <option value="Unisex">Unisex</option>
                 </select>
                 <ChevronIcon />
               </div>

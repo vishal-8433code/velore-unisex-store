@@ -11,11 +11,19 @@ export default defineConfig({
     },
   },
   server: {
-    host:true,
+    host: true,
     port: 8080,
     open: true, // Auto open browser
     cors: true,
     hmr: {
-      overlay: true
-    },}
+      overlay: true,
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8090', // 👈 yaha backend ka URL daal
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 })

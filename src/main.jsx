@@ -16,6 +16,9 @@ import AdminDashboard from "./pages/AdminDashboard.jsx";
 import ProductForm from "./pages/ProductForm.jsx"
 import Signup from "./pages/Sign-up.jsx"
 import EditProduct from "./pages/EditProduct.jsx";
+import Setting from "./pages/Setting.jsx";
+import VerifyCode from "./pages/VerifyCode.jsx";
+import UserAddress from "./pages/UserAddress.jsx"
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -29,10 +32,13 @@ createRoot(document.getElementById("root")).render(
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/verify" element={<VerifyCode />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product" element={<Product />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/verify" element={<Verify />} />
+          <Route path="/setting" element={<Setting />} />
+          <Route path="/add-address" element={<UserAddress />} />
+          {/* <Route path="/verify" element={<Verify />} /> */}
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/create-product" element={<ProductForm />} />

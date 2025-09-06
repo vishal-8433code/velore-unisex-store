@@ -5,6 +5,8 @@ import { Button } from "../components/ui/button"
 import { cn } from "../lib/utils"
 import Navbar from "../components/Navbar.jsx"
 import Footer from "../components/Footer.jsx"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 function VeloreMark({ className }) {
   // Triple-stroke "V" emblem
@@ -27,8 +29,49 @@ function VeloreMark({ className }) {
 }
 
 export default function LoginCard() {
-  const [email, setEmail] = useState("")
+const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
+  const navigate = useNavigate()
+
+ const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError("")
+    setSubmitting(true)
+
+    // ✅ Frontend validation (optional)
+    if (!email || !password) {
+      setError("Please enter both email and password")
+      setSubmitting(false)
+      return
+    }
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
+        email,
+        password,
+      })
+
+      // Assuming backend returns { success: true, message, token } on success
+      if (response.data.success) {
+        // Optional: store token in localStorage/sessionStorage
+        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("userEmail", email)
+
+        // Navigate to home page
+        navigate("/", { replace: true })
+      } else {
+        setError(response.data.message || "Sign in failed")
+      }
+    } catch (err) {
+      console.error(err)
+      setError(err.response?.data?.message || "Server error. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
 
   return (
     <>
@@ -66,10 +109,7 @@ export default function LoginCard() {
 
         <form
           className="mt-8 space-y-6"
-          onSubmit={(e) => {
-            e.preventDefault()
-            // demo only
-          }}
+          onSubmit={handleSubmit}
         >
           <div className="space-y-2 text-left">
             <Label htmlFor="email" className="text-neutral-200">
@@ -99,12 +139,22 @@ export default function LoginCard() {
             />
           </div>
 
-          <Button
-            type="submit"
-            className="h-12 w-full rounded-md bg-[#facc15] font-semibold text-black hover:bg-[#eab308]"
-          >
-            Sign In
-          </Button>
+          {error && (
+  <p className="text-red-500 text-center mb-2">
+    {error}
+  </p>
+)}
+
+<Button
+  type="submit"
+  className={`h-12 w-full rounded-md bg-yellow-400 font-semibold text-black hover:bg-yellow-500 ${
+    submitting ? "opacity-60 cursor-not-allowed" : ""
+  }`}
+  disabled={submitting}
+>
+  {submitting ? "Signing in..." : "Sign In"}
+</Button>
+
 
           <div className="text-center text-sm text-neutral-300">
             {"Don't have an account? "}
